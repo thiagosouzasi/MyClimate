@@ -1,12 +1,69 @@
-import React, { useEffect } from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Geolocation from 'react-native-geolocation-service';
+import { Alert, PermissionsAndroid, Platform, Text } from 'react-native';
 import Api from '../../Api';
 
 export default function Home(){
 
+    const [location, setLocation] = useState({latitude:'',longitude:''});
+
     useEffect(()=>{
-        getCurrentClimate();
-    },[]);
+        getCurrentLocation();
+    },[])
+
+    // useEffect(()=>{
+    //     getCurrentClimate();
+    // },[]);
+
+    const getCurrentLocation = ()=>{
+        try {
+            if(getUserPermitions()){
+                Geolocation.getCurrentPosition(
+                    (position) => {
+                      console.log(position);
+                    },
+                    (error) => {
+                      // See error code charts below.
+                      console.log(error.code, error.message);
+                    },
+                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+                );
+            }
+        } catch (error) {
+            console.log(`eErro ao buscar localizacao do usuario ${error}`);
+        }
+    }
+
+    const getUserPermitions = async ()=>{
+        try {
+            if(Platform.OS === `ios`){
+
+            }else{
+                //caso a versão do android seja anterior a 23 as permissões são concedidas no androidMainfest
+                if(Platform.OS === 'android' && Platform.Version < 23){
+                    return true;
+                }
+
+                //verificando se a permissão já foi concedida antes 
+                const permitionGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,);                
+                if(permitionGranted){
+                    return true;
+                }
+
+                //requisitando permissão caso ainda não tenha cido consedida
+                const requestPermition = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+                if(requestPermition === PermissionsAndroid.RESULTS.GRANTED){
+                    return true;
+                }else{
+                    Alert.alert(`O App precisa de permissão para acessar sua localização`);
+                }
+
+
+            }
+        } catch (error) {
+            console.log(`Erro ao buscar permissao do usuario ${error}`);
+        }
+    }
 
     const getCurrentClimate = ()=>{
         Api.get()
