@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
-import { Alert, PermissionsAndroid, Platform, Text } from 'react-native';
+import { Alert, ImageBackground, PermissionsAndroid, Platform, Text, View } from 'react-native';
 import Api from '../../Api';
+import RainDay from '../../Assets/rainday.png';
 
 export default function Home(){
 
@@ -77,8 +78,10 @@ export default function Home(){
     }
 
     return(
-        <>
-            <Text>Estou funcionando</Text>
-        </>
+        <View style={{flex:1}}>
+            <ImageBackground style={{flex:1}} source={RainDay} resizeMode='cover'>
+
+            </ImageBackground>
+        </View>
     );
 }
