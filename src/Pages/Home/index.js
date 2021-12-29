@@ -5,25 +5,26 @@ import Api from '../../Api';
 
 export default function Home(){
 
-    const [location, setLocation] = useState({latitude:'',longitude:''});
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
 
     useEffect(()=>{
         getCurrentLocation();
     },[])
 
-    // useEffect(()=>{
-    //     getCurrentClimate();
-    // },[]);
+    useEffect(()=>{
+        getCurrentClimate();
+    },[latitude]);
 
     const getCurrentLocation = ()=>{
         try {
             if(getUserPermitions()){
                 Geolocation.getCurrentPosition(
                     (position) => {
-                      console.log(position);
+                        setLatitude(position.coords.latitude);
+                        setLongitude(position.coords.longitude);                      
                     },
-                    (error) => {
-                      // See error code charts below.
+                    (error) => {                      
                       console.log(error.code, error.message);
                     },
                     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
@@ -66,7 +67,7 @@ export default function Home(){
     }
 
     const getCurrentClimate = ()=>{
-        Api.get()
+        Api.get(`&q=${latitude},${longitude}`)
         .then((reponse)=>{
             console.log(JSON.stringify(reponse.data));
         })
