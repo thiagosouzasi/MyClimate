@@ -13,17 +13,20 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     currentClimate:{
-        width:'80%',
+        width:'90%',
         justifyContent:'center',
         alignItems:'center',
-
-        color:'#fff'
+        backgroundColor:'rgba(255, 255, 255, 0.2)',
+        color:'#fff',
+        borderRadius:Dimens.borderRadios,
+        marginTop:Dimens.marginSize
     },
 
     textTitle:{
         fontSize:Dimens.fontSize,
         color:'#fff',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        textAlign:'center',
 
     },
 
@@ -35,10 +38,17 @@ const styles = StyleSheet.create({
     textStrong:{
         fontSize:Dimens.fontSizeStrong,
         color:'#fff',
+        
     },
-    contentMAx:{
+    secundaryContent:{
         flexDirection:'row',
-        gap:10,
+        justifyContent:'space-around',
+        width:'100%'
+    },
+
+    conditionIcon:{
+        width:64,
+        height:64
     }
 })
 
