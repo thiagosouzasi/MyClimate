@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
-import { Alert, ImageBackground, PermissionsAndroid, Platform, Text, View, Image } from 'react-native';
+import { Alert, ImageBackground, PermissionsAndroid, Platform, Text, View } from 'react-native';
 import Api from '../../Api';
+
+//importacao das imagens de background
 import RainDay from '../../Assets/rainday.png';
+import CloudyDay from '../../Assets/cloudyday.png';
+
+import Nigth from '../../Assets/nigth.png';
+import Rainnigth from '../../Assets/rainnigth.png';
+import Cloudynigth from '../../Assets/cloudynigth.png';
+
+
 import styles from './styles';
 
 export default function Home(){
 
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
-    const [backGround, setBackGround] = useState(RainDay);
+    //image of background
+    const [backGround, setBackGround] = useState(Cloudynigth);
     const [location, setLocation] = useState('');
     const [currentCLimate,setCurrentClimate] =useState();
 
@@ -71,13 +81,28 @@ export default function Home(){
         }
     }
 
+    const setBackgroundImage = (conditionCode,dayNigth)=>{
+        try {
+            if(dayNigth === 0){
+                switch (conditionCode){
+                    case 1063:
+                }
+                
+            }else{
+
+            }
+        } catch (error) {
+            console.log('Erro ao selecionar fundo' + error);
+        }
+    }
+    
     const getCurrentClimate = ()=>{
         if(latitude){
             Api.get(`&q=${latitude},${longitude}&days=5`)
             .then((response)=>{
                 setLocation(response.data.location.name);
-                setCurrentClimate(response.data.current);                
-                
+                setCurrentClimate(response.data.current);      
+                setBackGround(Nigth);
             })
             .catch((error)=>{
                 console.log('erro ao buscar dados' + error)
@@ -89,7 +114,7 @@ export default function Home(){
         <View style={{flex:1}}>
             <ImageBackground style={styles.imgBackground} source={backGround} resizeMode='cover'>
                 <View style={styles.currentClimate}>
-                    <Text style={styles.textTitle}>{location}</Text>                    
+                    <Text style={styles.textSubTitle}>{location}</Text>                    
                     <Text style={styles.textTitle}>{currentCLimate ? currentCLimate.condition.text : ''}</Text>            
                     <Text style={styles.textSubTitle}>Temperatura</Text>            
                     <Text style={styles.textStrong}>{currentCLimate ? currentCLimate.temp_c : ''}°</Text>      
