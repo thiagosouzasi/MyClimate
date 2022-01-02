@@ -1,5 +1,5 @@
 import { StyleSheet} from 'react-native';
-
+import Colors from '../../DefaultValues/Colors';
 import Dimens from '../../DefaultValues/Dimens';
 const styles = StyleSheet.create({
 
@@ -10,21 +10,22 @@ const styles = StyleSheet.create({
     imgBackground:{
         flex:1,
         padding:Dimens.padingSizeLarge,
-        alignItems:"center"
+        alignItems:"center",
+        justifyContent:'space-around'
     },
     currentClimate:{
         width:'90%',
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'rgba(255, 255, 255, 0.2)',
-        color:'#fff',
+        backgroundColor:Colors.backgroundColor,
+        color:Colors.fontColor,
         borderRadius:Dimens.borderRadios,
         marginTop:Dimens.marginSize
     },
 
     textTitle:{
         fontSize:Dimens.fontSize,
-        color:'#fff',
+        color:Colors.fontColor,
         fontWeight:'bold',
         textAlign:'center',
 
@@ -32,12 +33,12 @@ const styles = StyleSheet.create({
 
     textSubTitle:{
         fontSize:Dimens.fontSiZeSubTitle,
-        color:'#fff',
+        color:Colors.fontColor,
     },
 
     textStrong:{
         fontSize:Dimens.fontSizeStrong,
-        color:'#fff',
+        color:Colors.fontColor,
         
     },
     secundaryContent:{
@@ -49,6 +50,13 @@ const styles = StyleSheet.create({
     conditionIcon:{
         width:64,
         height:64
+    },
+
+    climateDays:{
+        width:'100%',
+        flexDirection: 'row',
+        justifyContent:'space-around',
+       
     }
 })
 

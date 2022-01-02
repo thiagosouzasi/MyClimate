@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { Alert, ImageBackground, PermissionsAndroid, Platform, Text, View } from 'react-native';
 import Api from '../../Api';
+import ClimateDay from '../../Components/ClimateDay';
 
 //importacao das imagens de background
 import RainDay from '../../Assets/rainday.png';
@@ -102,7 +103,7 @@ export default function Home(){
             .then((response)=>{
                 setLocation(response.data.location.name);
                 setCurrentClimate(response.data.current);      
-                setBackGround(Nigth);
+                setBackGround(RainDay);
             })
             .catch((error)=>{
                 console.log('erro ao buscar dados' + error)
@@ -122,6 +123,11 @@ export default function Home(){
                         <Text style={styles.textSubTitle}>Vento {currentCLimate ? currentCLimate.wind_kph + ' Km' : ''}</Text>
                         <Text style={styles.textSubTitle}>Umidade {currentCLimate ? currentCLimate.humidity + '%' : ''}</Text>
                     </View>
+                </View>
+                <View style={styles.climateDays}>
+                    <ClimateDay />
+                    <ClimateDay />
+                    <ClimateDay />
                 </View>
             </ImageBackground>
         </View>
