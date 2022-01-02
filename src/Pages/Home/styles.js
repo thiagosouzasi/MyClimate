@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         backgroundColor:Colors.backgroundColor,
         color:Colors.fontColor,
         borderRadius:Dimens.borderRadios,
-        marginTop:Dimens.marginSize
+        marginTop:Dimens.marginSize,
+        
     },
 
     textTitle:{
@@ -56,6 +57,8 @@ const styles = StyleSheet.create({
         width:'100%',
         flexDirection: 'row',
         justifyContent:'space-around',
+        flex:1,
+        marginTop:Dimens.marginLarge,
        
     }
 })
