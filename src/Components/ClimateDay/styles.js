@@ -4,7 +4,7 @@
     const styles = StyleSheet.create({
         contianer:{
             width:100,
-            height:100,
+            height:120,
             backgroundColor:Colors.backgroundColor,
             borderRadius:Dimens.borderRadios,
             alignItems:"center",
@@ -12,8 +12,8 @@
         },
 
         maxims:{
-            flexDirection:"row",
             justifyContent:"space-evenly",
+            alignItems:"center",
             width:'100%'
         },
 
@@ -22,7 +22,7 @@
         },
 
         textStrong:{
-            fontSize:40,
+            fontSize:Dimens.fontSize,
             color:Colors.fontColor,
         }
     });

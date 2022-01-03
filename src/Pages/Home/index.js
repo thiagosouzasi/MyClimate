@@ -106,6 +106,7 @@ export default function Home(){
                 setCurrentClimate(response.data.current);      
                 setNextDays(response.data.forecast.forecastday);
                 
+                
             })
             .catch((error)=>{
                 console.log('erro ao buscar dados' + error)
@@ -114,8 +115,8 @@ export default function Home(){
     }
 
     const renderItem = (item)=>{
-        try {
-            return <ClimateDay />
+        try {                        
+            return <ClimateDay day={item.item.date} max={item.item.day.maxtemp_c} min={item.item.day.mintemp_c}/>
         } catch (error) {
             console.log('Erro ao renderizar next days' + error);
         }
