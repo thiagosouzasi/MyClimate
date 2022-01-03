@@ -55,8 +55,10 @@ const styles = StyleSheet.create({
 
     climateDays:{
         width:'100%',
-        flexDirection: 'row',
-        justifyContent:'space-around',
+        padding:Dimens.padingSizeLarge,
+
+        justifyContent:'space-evenly',
+        alignItems:'center',
         flex:1,
         marginTop:Dimens.marginLarge,
        

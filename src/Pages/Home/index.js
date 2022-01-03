@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
-import { Alert, ImageBackground, PermissionsAndroid, Platform, Text, View } from 'react-native';
+import { Alert, ImageBackground, PermissionsAndroid, Platform, Text, View,FlatList } from 'react-native';
 import Api from '../../Api';
 import ClimateDay from '../../Components/ClimateDay';
 
@@ -23,6 +23,7 @@ export default function Home(){
     const [backGround, setBackGround] = useState(Cloudynigth);
     const [location, setLocation] = useState('');
     const [currentCLimate,setCurrentClimate] =useState();
+    const [nextDays, setNextDays] =  useState([]);
 
     useEffect(()=>{
         getCurrentLocation();
@@ -103,11 +104,20 @@ export default function Home(){
             .then((response)=>{
                 setLocation(response.data.location.name);
                 setCurrentClimate(response.data.current);      
-                setBackGround(RainDay);
+                setNextDays(response.data.forecast.forecastday);
+                
             })
             .catch((error)=>{
                 console.log('erro ao buscar dados' + error)
             });
+        }
+    }
+
+    const renderItem = (item)=>{
+        try {
+            return <ClimateDay />
+        } catch (error) {
+            console.log('Erro ao renderizar next days' + error);
         }
     }
 
@@ -125,9 +135,13 @@ export default function Home(){
                     </View>
                 </View>
                 <View style={styles.climateDays}>
-                    <ClimateDay />
-                    <ClimateDay />
-                    <ClimateDay />
+                    <Text style={styles.textSubTitle}>Próximos Dias</Text>
+                    <FlatList style={{width:'100%'}}
+                        horizontal={true}
+                        data={nextDays}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.date_epoch}
+                    />                    
                 </View>
             </ImageBackground>
         </View>

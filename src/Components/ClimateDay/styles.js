@@ -3,11 +3,12 @@
     import Colors from '../../DefaultValues/Colors';
     const styles = StyleSheet.create({
         contianer:{
-            width:'30%',
+            width:100,
             height:100,
             backgroundColor:Colors.backgroundColor,
             borderRadius:Dimens.borderRadios,
-            alignItems:"center"
+            alignItems:"center",
+            marginRight:Dimens.marginSize,
         },
 
         maxims:{
