@@ -7,11 +7,12 @@ import ClimateDay from '../../Components/ClimateDay';
 //importacao das imagens de background
 import RainDay from '../../Assets/rainday.png';
 import CloudyDay from '../../Assets/cloudyday.png';
-
+import SunnyDay from '../../Assets/sunnyday.png';
 import Nigth from '../../Assets/nigth.png';
 import RainNigth from '../../Assets/rainnigth.png';
 import CloudyNigth from '../../Assets/cloudynigth.png';
-
+import SnowNigth from '../../Assets/snownigth.png';
+import SnowDay from '../../Assets/snowday.png';
 
 import styles from './styles';
 
@@ -20,7 +21,7 @@ export default function Home(){
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     //image of background
-    const [backGround, setBackGround] = useState(Cloudynigth);
+    const [backGround, setBackGround] = useState(SunnyDay);
     const [location, setLocation] = useState('');
     const [currentCLimate,setCurrentClimate] =useState();
     const [nextDays, setNextDays] =  useState([]);
@@ -37,6 +38,10 @@ export default function Home(){
     useEffect(()=>{
         getCurrentClimate();
     },[latitude]);
+
+    useEffect(()=>{
+        setBackGroundImage();
+    },[currentCLimate]);
 
     const getCurrentLocation = ()=>{
         try {
@@ -88,17 +93,13 @@ export default function Home(){
         }
     }
 
-    
-    
     const getCurrentClimate = ()=>{
         if(latitude){
             Api.get(`&q=${latitude},${longitude}&days=5`)
             .then((response)=>{
                 setLocation(response.data.location.name);
                 setCurrentClimate(response.data.current);      
-                setNextDays(response.data.forecast.forecastday);
-                
-                
+                setNextDays(response.data.forecast.forecastday);                                
             })
             .catch((error)=>{
                 console.log('erro ao buscar dados' + error)
@@ -114,19 +115,22 @@ export default function Home(){
         }
     }
 
-    const setBackGroundImage = (climateCode)=>{
+    const setBackGroundImage = ()=>{        
         try {
-            if(SUNNY_CONDITIONS.includes(climateCode)){
-                
-                
-            }else if(RAIN_CONDITIONS.includes(climateCode)){                
-                currentCLimate.is_day === 1 ? setBackGround(RainDay) : setBackGround(RainNigth);
-
-            }else if(CLOUDY_CONDITIONS.includes(climateCode)){
-                currentCLimate.is_day === 1 ? setBackGround(CloudyDay) : setBackGround(CloudyNigth);
-
-            }else if(SNOW_CONDITIONS.includes(climateCode)){
-                
+            if(currentCLimate){
+                let climateCode = currentCLimate.condition.code;
+                if(SUNNY_CONDITIONS.includes(climateCode)){
+                    currentCLimate.is_day === 1 ? setBackGround(SunnyDay) : setBackGround(Nigth);
+                    
+                }else if(RAIN_CONDITIONS.includes(climateCode)){                
+                    currentCLimate.is_day === 1 ? setBackGround(RainDay) : setBackGround(RainNigth);
+    
+                }else if(CLOUDY_CONDITIONS.includes(climateCode)){
+                    currentCLimate.is_day === 1 ? setBackGround(CloudyDay) : setBackGround(CloudyNigth);
+    
+                }else if(SNOW_CONDITIONS.includes(climateCode)){
+                    currentCLimate.is_day === 1 ? setBackGround(SnowDay) : setBackGround(SnowNigth);
+                }
             }
 
         } catch (error) {
