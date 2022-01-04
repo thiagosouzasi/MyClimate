@@ -46,7 +46,7 @@ yarn add axios
 git clone https://github.com/thiagosouzasi/MyClimate.git
 
 # 2- Entre na pasta do projeto
-cd pdf-report
+cd MyClimate
 
 # 3- executar o projeto
 yarn start
