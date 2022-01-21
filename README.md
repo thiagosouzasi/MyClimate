@@ -49,7 +49,7 @@ git clone https://github.com/thiagosouzasi/MyClimate.git
 cd MyClimate
 
 # 3- executar o projeto
-react-native run-andriod
+react-native run-android
 
 ```
 
